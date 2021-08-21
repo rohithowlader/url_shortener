@@ -25,4 +25,29 @@ const makeid = async(length) => {
     return result;
 }
 
+app.post('/short', async(req, res) => {
+    const isValid = await checkUrl(req.body.url)
+    if(!isValid) {
+        return res.status(500).send("Incorrect input")
+    }
+
+    const newUrl = await makeid(8) //generate new url
+    const isPresent = await client.get(newUrl) //check collision for random id
+    const isUrlPresent = await client.get(req.body.url) //check if url already generated
+
+    if(isUrlPresent) {
+        return res.render('url', {url: `http://localhost:5000/s/${isUrlPresent}`})
+    }
+    if (!isPresent) {
+        await client.set(newUrl, req.body.url, 'EX', 3600)    
+        await client.set(req.body.url, newUrl, 'EX', 3600)
+
+        return res.render('url', {url: `http://localhost:5000/s/${newUrl}`})
+    }
+})
+
+app.get('/', (req, res) => {
+    res.render('home')
+})
+
 app.listen(5000, () => {console.log('Server started')})
