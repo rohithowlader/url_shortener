@@ -9,4 +9,5 @@ To run the project:
       redis-server
     >Run this project locally using 
       npm start
+    >Go to your browser and enter the address [localhost:5000](localhost:5000)
 ```
