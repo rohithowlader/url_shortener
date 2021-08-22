@@ -4,7 +4,9 @@ URL shortening is a technique on the World Wide Web in which a Uniform Resource 
 To run the project:
     > pull the code.
     > install the dependencies using
-      npm i express express-handlebars async-redis 
+      npm i
+    > go to another termial and start the redis server using 
+      redis-server
     >Run this project locally using 
       npm start
 ```
