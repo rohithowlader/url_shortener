@@ -44,6 +44,7 @@ app.post('/short', async(req, res) => {
     const newUrl = await makeid(8) //generate new url
     const isPresent = await client.get(newUrl) //check collision for random id
     const isUrlPresent = await client.get(req.body.url) //check if url already generated
+    //comment
 
     if(isUrlPresent) {
         await client.set(req.body.url, isUrlPresent, 'EX', 3600) // reset timer
